@@ -1,26 +1,26 @@
-import header from "./Header.module.css";
+import { useCallback } from 'react'
 
-import { useCallback } from "react";
+import header from './Header.module.css'
 
 export default function Header({ inputValue, setInputValue, setTask }) {
   const handleInputChange = (event) => {
-    event.preventDefault();
-    setInputValue(event.target.value);
-  };
+    event.preventDefault()
+    setInputValue(event.target.value)
+  }
   const handleInputSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const newTask = {
       id: Date.now(),
       text: inputValue,
       completed: false,
-      status: "Active",
+      status: 'Active',
       createAt: new Date(),
-    };
+    }
     setTask((prevTask) => {
-      return [...prevTask, newTask];
-    });
-    setInputValue("");
-  };
+      return [...prevTask, newTask]
+    })
+    setInputValue('')
+  }
   return (
     <header className={header.header}>
       <h1 className={header.title}>Todo List</h1>
@@ -34,5 +34,5 @@ export default function Header({ inputValue, setInputValue, setTask }) {
         />
       </form>
     </header>
-  );
+  )
 }

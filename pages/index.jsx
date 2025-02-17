@@ -1,7 +1,5 @@
-import TodoApp from "../components/TodoApp"
+import TodoApp from '../components/TodoApp'
 
-export default function HomePage () {
-    return (
-        <TodoApp/>
-    )
+export default function HomePage() {
+  return <TodoApp />
 }
