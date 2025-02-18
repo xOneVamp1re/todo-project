@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "lint:react": "eslint -c .eslint.config-react.mjs .",
     "format": "prettier --write .",
-    "postinstall": "husky install",
-    "prepare": "husky install"
+    "prepare": "husky init"
   },
   "author": "",
   "license": "ISC",
