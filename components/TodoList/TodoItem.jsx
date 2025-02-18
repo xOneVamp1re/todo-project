@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from 'date-fns'
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import TodoItemEdit from './TodoItemEdit'
 
@@ -41,6 +42,16 @@ function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit })
       )}
     </li>
   )
+}
+
+TodoItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+  createAt: PropTypes.instanceOf(Date).isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 }
 
 export default React.memo(TodoItem)

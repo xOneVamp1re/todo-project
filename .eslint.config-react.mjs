@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename)
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-  plugins: [prettier, _import, jsxA11y, pluginReact],
+  plugins: [prettier, _import, jsxA11y],
 })
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -44,10 +44,7 @@ export default [
     'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'next',
-    'next/core-web-vitals',
-    'plugin:jsx-a11y/recommended',
-    'plugin:react/recommended'
+    'plugin:jsx-a11y/recommended'
   ),
   {
     rules: {

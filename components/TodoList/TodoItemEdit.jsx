@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 function TodoItemEdit({ text, onSave, onCancel }) {
   const [title, setTitle] = useState(text)
@@ -28,4 +29,11 @@ function TodoItemEdit({ text, onSave, onCancel }) {
     </div>
   )
 }
+
+TodoItemEdit.propTypes = {
+  text: PropTypes.string.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+}
+
 export default TodoItemEdit

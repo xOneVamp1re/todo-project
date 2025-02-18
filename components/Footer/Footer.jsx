@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 import footer from './Footer.module.css'
 
-export default function Footer({ tasks, setTasks, setFilter, filter }) {
+function Footer({ tasks, setTasks, setFilter, filter }) {
   const [filterOptions] = useState([
     { id: 1, name: 'All' },
     { id: 2, name: 'Active' },
@@ -21,7 +22,7 @@ export default function Footer({ tasks, setTasks, setFilter, filter }) {
     return setTasks((prevTasks) => {
       return prevTasks.filter((task) => !task.completed)
     })
-  }, [tasks])
+  }, [setTasks])
 
   return (
     <footer className={footer.footer}>
@@ -33,6 +34,7 @@ export default function Footer({ tasks, setTasks, setFilter, filter }) {
             onClick={() => {
               handleFilterChange(option.name)
             }}
+            role="presentation"
           >
             <button className={filter === option.name ? 'selected' : ''}>{option.name}</button>
           </li>
@@ -44,3 +46,19 @@ export default function Footer({ tasks, setTasks, setFilter, filter }) {
     </footer>
   )
 }
+Footer.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      status: PropTypes.string.isRequired,
+      createAt: PropTypes.instanceOf(Date).isRequired,
+    })
+  ).isRequired,
+  setTasks: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+}
+
+export default Footer

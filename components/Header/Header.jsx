@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 import header from './Header.module.css'
 
-export default function Header({ inputValue, setInputValue, setTask }) {
+function Header({ inputValue, setInputValue, setTask }) {
   const handleInputChange = (event) => {
     event.preventDefault()
     setInputValue(event.target.value)
@@ -30,9 +30,17 @@ export default function Header({ inputValue, setInputValue, setTask }) {
           placeholder="What needs to be done?"
           value={inputValue}
           onChange={handleInputChange}
-          autoFocus
+          // autoFocus
         />
       </form>
     </header>
   )
 }
+
+Header.propTypes = {
+  inputValue: PropTypes.string.isRequired,
+  setInputValue: PropTypes.func.isRequired,
+  setTask: PropTypes.func.isRequired,
+}
+
+export default Header
