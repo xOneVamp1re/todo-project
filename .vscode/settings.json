@@ -3,7 +3,6 @@
   "cSpell.language": "en, ru",
 
   "[html][css][scss][javascript]": {
-    "editor.tabSize": 2,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
@@ -17,3 +16,4 @@
   "cSpell.words": [],
   "liveServer.settings.port": 5501
 }
+

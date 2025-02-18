@@ -34,8 +34,7 @@ function Footer({ tasks, setTasks, setFilter, filter }) {
             onClick={() => {
               handleFilterChange(option.name)
             }}
-            role="presentation"
-          >
+            role="presentation">
             <button className={filter === option.name ? 'selected' : ''}>{option.name}</button>
           </li>
         ))}

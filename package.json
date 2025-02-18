@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:react": "eslint -c .eslint.config-react.mjs .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
@@ -35,7 +36,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.15.0",
     "htmlhint": "^1.1.4",
-    "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.1",
     "stylelint": "^16.14.1",
@@ -45,15 +45,15 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
+      "eslint --cache --fix",
       "prettier --write"
     ],
     "*.css": [
-      "stylelint --fix",
+      "stylelint --cache --fix",
       "prettier --write"
     ],
     "*.jsx": [
-      "eslint --fix",
+      "eslint --cache --fix",
       "prettier --write"
     ],
     "*.html": [
@@ -62,7 +62,8 @@
     ],
     "*.json": [
       "prettier --write"
-    ]
+    ],
+    "*.md": "prettier --write"
   },
   "prettier": {
     "singleQuote": true,
@@ -70,7 +71,7 @@
     "endOfLine": "crlf",
     "printWidth": 120,
     "semi": false,
-    "jsxBracketSameLine": true,
+    "bracketSameLine": true,
     "tabWidth": 2,
     "quoteProps": "as-needed",
     "arrowParens": "always",
