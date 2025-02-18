@@ -45,15 +45,15 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --cache --fix",
+      "eslint --fix",
       "prettier --write"
     ],
     "*.css": [
-      "stylelint --cache --fix",
+      "stylelint --fix",
       "prettier --write"
     ],
     "*.jsx": [
-      "eslint --cache --fix",
+      "eslint --fix",
       "prettier --write"
     ],
     "*.html": [
