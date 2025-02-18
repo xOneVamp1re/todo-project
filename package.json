@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:react": "eslint -c .eslint.config-react.mjs .",
-    "format": "prettier --write .",
-    "prepare": "husky init"
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
