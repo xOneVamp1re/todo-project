@@ -1,1 +1,1 @@
-https://todo-project-git-tasktimer-alex-lyadniks-projects.vercel.app/
+https://todo-project-alex-lyadniks-projects.vercel.app/
