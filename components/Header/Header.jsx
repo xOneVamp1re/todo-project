@@ -9,12 +9,17 @@ function Header({ inputValue, setInputValue, setTask }) {
   }
   const handleInputSubmit = (event) => {
     event.preventDefault()
+    if (!inputValue.trim()) {
+      setInputValue('')
+      return
+    }
     const newTask = {
       id: Date.now(),
-      text: inputValue,
+      text: inputValue.trim(),
       completed: false,
       status: 'Active',
       createAt: new Date(),
+      seconds: 0,
     }
     setTask((prevTask) => {
       return [...prevTask, newTask]

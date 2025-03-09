@@ -57,7 +57,13 @@ export default function TodoApp() {
     <section className={style.todoapp}>
       <Header inputValue={inputValue} setInputValue={setInputValue} setTask={setTasks} />
       <section className="main">
-        <TodoList tasks={filteredTasks} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
+        <TodoList
+          tasks={filteredTasks}
+          onToggle={handleToggle}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          setTasks={setTasks}
+        />
         <Footer tasks={tasks} setTasks={setTasks} setFilter={setFilter} filter={filter} />
       </section>
     </section>

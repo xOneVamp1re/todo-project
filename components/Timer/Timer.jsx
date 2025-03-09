@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import style from './Timer.module.css'
 
-const Timer = () => {
-  const [time, setTime] = useState(0)
+const Timer = ({ seconds, setTasks, id }) => {
   const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
@@ -11,14 +11,21 @@ const Timer = () => {
 
     if (isRunning) {
       timerInterval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1)
+        setTasks((prev) => {
+          return prev.map((el) => {
+            if (el.id === id) {
+              return { ...el, seconds: el.seconds + 1 }
+            }
+            return el
+          })
+        })
       }, 1000)
     }
 
     return () => {
       clearInterval(timerInterval)
     }
-  }, [isRunning])
+  }, [id, isRunning, seconds, setTasks])
 
   const handleStart = () => {
     setIsRunning(true)
@@ -37,9 +44,15 @@ const Timer = () => {
     <span className={style.description}>
       <button className={`${style.icon} ${style['icon-play']}`} onClick={handleStart}></button>
       <button className={`${style.icon} ${style['icon-pause']}`} onClick={handlePause}></button>
-      {formatTime(time)}
+      {formatTime(seconds)}
     </span>
   )
+}
+
+Timer.propTypes = {
+  seconds: PropTypes.number.isRequired,
+  setTasks: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 }
 
 export default Timer
