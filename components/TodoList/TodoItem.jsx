@@ -2,6 +2,8 @@ import { formatDistanceToNow } from 'date-fns'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Timer from '../Timer'
+
 import TodoItemEdit from './TodoItemEdit'
 
 function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit }) {
@@ -34,6 +36,7 @@ function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit })
           />
           <label>
             <span className="description">{text}</span>
+            <Timer className="description" />
             <span className="created">{formatDistanceToNow(new Date(createAt), { addSuffix: true })}</span>
           </label>
           <button className="icon icon-edit" onClick={handleClickEdit}></button>

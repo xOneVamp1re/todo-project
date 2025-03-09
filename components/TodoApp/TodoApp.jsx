@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 
 import style from '../TodoApp/TodoApp.module.css'
 import Header from '../Header'
@@ -11,6 +11,41 @@ export default function TodoApp() {
   const [tasks, setTasks] = useState([])
   const [filter, setFilter] = useState('All')
 
+  const handleToggle = useCallback(
+    (id) => {
+      setTasks((prevTasks) => {
+        return prevTasks.map((task) => {
+          return task.id === id
+            ? {
+                ...task,
+                completed: !task.completed,
+                status: !task.completed ? 'Completed' : 'Active',
+              }
+            : task
+        })
+      })
+    },
+    [setTasks]
+  )
+  const handleDelete = useCallback(
+    (id) => {
+      setTasks((prevTasks) => {
+        return prevTasks.filter((task) => task.id !== id)
+      })
+    },
+    [setTasks]
+  )
+  const handleEdit = useCallback(
+    (newText, id) => {
+      setTasks((prevTasks) => {
+        return prevTasks.map((task) => {
+          return task.id === id ? { ...task, text: newText } : task
+        })
+      })
+    },
+    [setTasks]
+  )
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'All') return true
     if (filter === 'Active') return !task.completed
@@ -18,14 +53,11 @@ export default function TodoApp() {
     return true
   })
 
-  useEffect(() => {
-    console.log('Tasks updated:', tasks)
-  }, [tasks])
   return (
     <section className={style.todoapp}>
       <Header inputValue={inputValue} setInputValue={setInputValue} setTask={setTasks} />
       <section className="main">
-        <TodoList tasks={filteredTasks} setTasks={setTasks} />
+        <TodoList tasks={filteredTasks} onToggle={handleToggle} onDelete={handleDelete} onEdit={handleEdit} />
         <Footer tasks={tasks} setTasks={setTasks} setFilter={setFilter} filter={filter} />
       </section>
     </section>
