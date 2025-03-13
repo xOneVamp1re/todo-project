@@ -6,7 +6,7 @@ import Timer from '../Timer'
 
 import TodoItemEdit from './TodoItemEdit'
 
-function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit, seconds, setTasks }) {
+function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit, setTimers, setTasks, timers }) {
   const [isEditing, setIsEditing] = React.useState(false)
 
   const handleClickEdit = () => {
@@ -35,7 +35,7 @@ function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit, s
           />
           <label>
             <span className="description">{text}</span>
-            <Timer className="description" seconds={seconds} setTasks={setTasks} id={id} />
+            <Timer className="description" timers={timers} setTimers={setTimers} setTasks={setTasks} id={id} />
             <span className="created">{formatDistanceToNow(new Date(createAt), { addSuffix: true })}</span>
           </label>
           <button className="icon icon-edit" onClick={handleClickEdit}></button>
@@ -55,7 +55,8 @@ TodoItem.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   setTasks: PropTypes.func.isRequired,
-  seconds: PropTypes.number.isRequired,
+  setTimers: PropTypes.func.isRequired,
+  timers: PropTypes.object.isRequired,
 }
 
 export default React.memo(TodoItem)

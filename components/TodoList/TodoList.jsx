@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import TodoItem from './TodoItem'
 
-function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks }) {
+function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks, setTimers, timers }) {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
@@ -15,6 +15,8 @@ function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks }) {
             onDelete={onDelete}
             onEdit={onEdit}
             setTasks={setTasks}
+            setTimers={setTimers}
+            timers={timers}
           />
         )
       })}
@@ -36,6 +38,8 @@ TodoList.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  setTimers: PropTypes.func.isRequired,
+  timers: PropTypes.object.isRequired,
 }
 
 export default React.memo(TodoList)

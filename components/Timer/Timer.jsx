@@ -1,9 +1,42 @@
-import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import style from './Timer.module.css'
+import styles from './Timer.module.css'
 
-const Timer = ({ seconds, setTasks, id }) => {
+const Timer = ({ id, setTimers, timers }) => {
+  const startTimer = (id) => {
+    setTimers((prevTimers) => {
+      return { ...prevTimers, [id]: { ...prevTimers[id], active: true } }
+    })
+  }
+  const stopTimer = (id) => {
+    setTimers((prevTimers) => {
+      return { ...prevTimers, [id]: { ...prevTimers[id], active: false } }
+    })
+  }
+  const convertTime = (time) => {
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  }
+  return (
+    <span className={styles.description}>
+      <button className={`${styles.icon} ${styles['icon-play']}`} onClick={() => startTimer(id)}></button>
+      <button className={`${styles.icon} ${styles['icon-pause']}`} onClick={() => stopTimer(id)}></button>
+      {convertTime(timers[id].duration)}
+    </span>
+  )
+}
+
+Timer.propTypes = {
+  id: PropTypes.number.isRequired,
+  setTimers: PropTypes.func.isRequired,
+  timers: PropTypes.object.isRequired,
+}
+
+export default Timer
+
+{
+  /* 
   const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
@@ -34,25 +67,18 @@ const Timer = ({ seconds, setTasks, id }) => {
     setIsRunning(false)
   }
 
-  const formatTime = (time) => {
+          <span className={styles.description}>
+          <button className={`${styles.icon} ${styles['icon-play']}`}></button>
+          <button className={`${styles.icon} ${styles['icon-pause']}`}></button>
+          {initialTime}
+
+   </span>
+
+ const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
     const seconds = time % 60
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
   }
 
-  return (
-    <span className={style.description}>
-      <button className={`${style.icon} ${style['icon-play']}`} onClick={handleStart}></button>
-      <button className={`${style.icon} ${style['icon-pause']}`} onClick={handlePause}></button>
-      {formatTime(seconds)}
-    </span>
-  )
+       */
 }
-
-Timer.propTypes = {
-  seconds: PropTypes.number.isRequired,
-  setTasks: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
-}
-
-export default Timer
