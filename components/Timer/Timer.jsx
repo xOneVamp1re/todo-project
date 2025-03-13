@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styles from './Timer.module.css'
 
 const Timer = ({ id, setTimers, timers }) => {
+  const duration = timers[id]?.duration
   const startTimer = (id) => {
     setTimers((prevTimers) => {
       return { ...prevTimers, [id]: { ...prevTimers[id], active: true } }
@@ -22,7 +23,8 @@ const Timer = ({ id, setTimers, timers }) => {
     <span className={styles.description}>
       <button className={`${styles.icon} ${styles['icon-play']}`} onClick={() => startTimer(id)}></button>
       <button className={`${styles.icon} ${styles['icon-pause']}`} onClick={() => stopTimer(id)}></button>
-      {convertTime(timers[id].duration)}
+      {}
+      {convertTime(duration) !== '00:00' ? convertTime(duration) : 'Таймер истёк'}
     </span>
   )
 }

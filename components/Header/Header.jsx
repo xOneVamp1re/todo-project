@@ -54,7 +54,7 @@ function Header({ inputValue, setInputValue, setTask, setTimers }) {
     if (time.length > 1) {
       const timeParts = time.toString().split(':')
       const minutes = parseInt(timeParts[0], 10)
-      const seconds = parseInt(timeParts[1], 10)
+      const seconds = parseInt(timeParts[1], 10) || 0
       return minutes ? minutes * 60 + seconds : seconds
     }
     return 60

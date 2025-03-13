@@ -55,7 +55,9 @@ export default function TodoApp() {
   const activeTimersUpdate = (id) => {
     setTimers((prevTimers) => {
       const { duration } = prevTimers[id]
-      if (duration > 0) {
+      if (duration === 0) {
+        return { ...prevTimers, [id]: { duration: 0 } }
+      } else if (duration > 0) {
         return { ...prevTimers, [id]: { duration: duration - 1, active: true } }
       }
     })
@@ -93,7 +95,7 @@ export default function TodoApp() {
           setTimers={setTimers}
           timers={timers}
         />
-        <Footer tasks={tasks} setTasks={setTasks} setFilter={setFilter} filter={filter} />
+        <Footer tasks={tasks} setTasks={setTasks} setFilter={setFilter} filter={filter} setTimers={setTimers} />
       </section>
     </section>
   )
