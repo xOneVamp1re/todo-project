@@ -38,6 +38,10 @@ export default function TodoApp() {
         clearInterval(timersRef.current[id])
         delete timersRef.current[id]
       }
+      setTimers((prev) => {
+        delete prev[id]
+        return prev
+      })
     },
     [setTasks]
   )
