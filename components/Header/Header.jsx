@@ -57,7 +57,7 @@ function Header({ inputValue, setInputValue, setTask, setTimers }) {
       const seconds = parseInt(timeParts[1], 10) || 0
       return minutes ? minutes * 60 + seconds : seconds
     }
-    return 60
+    return 'withoutTimer'
   }
 
   return (

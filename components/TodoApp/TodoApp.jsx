@@ -1,5 +1,5 @@
 'use client'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useRef } from 'react'
 
 import style from '../TodoApp/TodoApp.module.css'
 import Header from '../Header'
@@ -11,6 +11,7 @@ export default function TodoApp() {
   const [tasks, setTasks] = useState([])
   const [filter, setFilter] = useState('All')
   const [timers, setTimers] = useState({})
+  const timersRef = useRef({})
 
   const handleToggle = useCallback(
     (id) => {
@@ -33,13 +34,12 @@ export default function TodoApp() {
       setTasks((prevTasks) => {
         return prevTasks.filter((task) => task.id !== id)
       })
-      setTimers((prevTimers) => {
-        const newTimers = { ...prevTimers }
-        delete newTimers[id]
-        return newTimers
-      })
+      if (timersRef.current[id]) {
+        clearInterval(timersRef.current[id])
+        delete timersRef.current[id]
+      }
     },
-    [setTasks, setTimers]
+    [setTasks]
   )
   const handleEdit = useCallback(
     (newText, id) => {
@@ -52,28 +52,34 @@ export default function TodoApp() {
     [setTasks]
   )
 
-  const activeTimersUpdate = (id) => {
-    setTimers((prevTimers) => {
-      const { duration } = prevTimers[id]
-      if (duration === 0) {
-        return { ...prevTimers, [id]: { duration: 0 } }
-      } else if (duration > 0) {
-        return { ...prevTimers, [id]: { duration: duration - 1, active: true } }
-      }
-    })
-  }
-  const findActiveTimers = () => {
-    for (const id in timers) {
-      if (timers[id].active) {
-        activeTimersUpdate(id)
-      }
+  const startTimer = useCallback((id, duration) => {
+    if (timersRef.current[id]) {
+      clearInterval(timersRef.current[id])
     }
-  }
 
-  useEffect(() => {
-    const interval = setInterval(findActiveTimers, 1000)
-    return () => clearInterval(interval)
-  }, [timers])
+    timersRef.current[id] = setInterval(() => {
+      setTimers((prevTimers) => {
+        const currentDuration = prevTimers[id]?.duration || duration
+        if (currentDuration > 0) {
+          return { ...prevTimers, [id]: { duration: currentDuration - 1, active: true } }
+        } else {
+          clearInterval(timersRef.current[id])
+          delete timersRef.current[id]
+          return { ...prevTimers, [id]: { duration: 0, active: false } }
+        }
+      })
+    }, 1000)
+  }, [])
+
+  const stopTimer = useCallback((id) => {
+    if (timersRef.current[id]) {
+      clearInterval(timersRef.current[id])
+      delete timersRef.current[id]
+    }
+    setTimers((prevTimers) => {
+      return { ...prevTimers, [id]: { ...prevTimers[id], active: false } }
+    })
+  }, [])
 
   const filteredTasks = tasks.filter((task) => {
     if (filter === 'All') return true
@@ -92,10 +98,18 @@ export default function TodoApp() {
           onDelete={handleDelete}
           onEdit={handleEdit}
           setTasks={setTasks}
-          setTimers={setTimers}
           timers={timers}
+          startTimer={startTimer}
+          stopTimer={stopTimer}
         />
-        <Footer tasks={tasks} setTasks={setTasks} setFilter={setFilter} filter={filter} setTimers={setTimers} />
+        <Footer
+          tasks={tasks}
+          setTasks={setTasks}
+          setFilter={setFilter}
+          filter={filter}
+          setTimers={setTimers}
+          timersRef={timersRef}
+        />
       </section>
     </section>
   )

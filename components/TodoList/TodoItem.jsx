@@ -6,7 +6,19 @@ import Timer from '../Timer'
 
 import TodoItemEdit from './TodoItemEdit'
 
-function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit, setTimers, setTasks, timers }) {
+function TodoItem({
+  id,
+  text,
+  completed,
+  createAt,
+  onToggle,
+  onDelete,
+  onEdit,
+  setTasks,
+  timers,
+  startTimer,
+  stopTimer,
+}) {
   const [isEditing, setIsEditing] = React.useState(false)
 
   const handleClickEdit = () => {
@@ -35,7 +47,14 @@ function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit, s
           />
           <label>
             <span className="description">{text}</span>
-            <Timer className="description" timers={timers} setTimers={setTimers} setTasks={setTasks} id={id} />
+            <Timer
+              className="description"
+              timers={timers}
+              setTasks={setTasks}
+              id={id}
+              startTimer={startTimer}
+              stopTimer={stopTimer}
+            />
             <span className="created">{formatDistanceToNow(new Date(createAt), { addSuffix: true })}</span>
           </label>
           <button className="icon icon-edit" onClick={handleClickEdit}></button>
@@ -55,7 +74,8 @@ TodoItem.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   setTasks: PropTypes.func.isRequired,
-  setTimers: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
   timers: PropTypes.object.isRequired,
 }
 

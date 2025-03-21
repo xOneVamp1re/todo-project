@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import TodoItem from './TodoItem'
 
-function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks, setTimers, timers }) {
+function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks, timers, startTimer, stopTimer }) {
   return (
     <ul className="todo-list">
       {tasks.map((task) => {
@@ -15,8 +15,9 @@ function TodoList({ tasks, onDelete, onToggle, onEdit, setTasks, setTimers, time
             onDelete={onDelete}
             onEdit={onEdit}
             setTasks={setTasks}
-            setTimers={setTimers}
             timers={timers}
+            startTimer={startTimer}
+            stopTimer={stopTimer}
           />
         )
       })}
@@ -38,7 +39,8 @@ TodoList.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  setTimers: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
   timers: PropTypes.object.isRequired,
 }
 
