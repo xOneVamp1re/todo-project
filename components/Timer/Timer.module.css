@@ -1,0 +1,55 @@
+.icon-play {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.icon-pause {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.icon-pause::after {
+  content: '⏸';
+}
+
+.icon-play::after {
+  content: '▶';
+}
+
+.icon {
+  color: #cc9a9a;
+  margin: auto 0;
+  transition: color 0.2s ease-out;
+  cursor: pointer;
+}
+
+.description {
+  font-size: 13px;
+  color: gray;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input::placeholder {
+  font-style: normal;
+  color: #999;
+}
+
+.input {
+  width: 25px;
+  text-align: center;
+}
+
+.input-btn {
+  margin-left: 5px;
+  cursor: pointer;
+  padding: 2px;
+  width: 30px;
+  border: 1px solid #999;
+  border-radius: 5px;
+}

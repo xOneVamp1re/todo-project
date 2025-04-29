@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import footer from './Footer.module.css'
 
-function Footer({ tasks, setTasks, setFilter, filter }) {
+function Footer({ tasks, setTasks, setFilter, filter, setTimers, timersRef }) {
   const [filterOptions] = useState([
     { id: 1, name: 'All' },
     { id: 2, name: 'Active' },
@@ -19,10 +19,24 @@ function Footer({ tasks, setTasks, setFilter, filter }) {
   }, [tasks])
 
   const deleteCompletedTask = useCallback(() => {
-    return setTasks((prevTasks) => {
-      return prevTasks.filter((task) => !task.completed)
+    const completedTasks = tasks.filter((task) => task.completed)
+    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed))
+
+    completedTasks.forEach((task) => {
+      if (timersRef.current[task.id]) {
+        clearInterval(timersRef.current[task.id])
+        delete timersRef.current[task.id]
+      }
     })
-  }, [setTasks])
+
+    setTimers((prevTimers) => {
+      const newTimers = { ...prevTimers }
+      completedTasks.forEach((task) => {
+        delete newTimers[task.id]
+      })
+      return newTimers
+    })
+  }, [setTasks, setTimers, tasks, timersRef])
 
   return (
     <footer className={footer.footer}>
@@ -58,6 +72,8 @@ Footer.propTypes = {
   setTasks: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   filter: PropTypes.string,
+  setTimers: PropTypes.func.isRequired,
+  timersRef: PropTypes.object,
 }
 
 export default Footer

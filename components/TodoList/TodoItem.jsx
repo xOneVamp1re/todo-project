@@ -2,10 +2,23 @@ import { formatDistanceToNow } from 'date-fns'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Timer from '../Timer'
+
 import TodoItemEdit from './TodoItemEdit'
 
-function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit }) {
-  console.log(`Rendering item ${id}`)
+function TodoItem({
+  id,
+  text,
+  completed,
+  createAt,
+  onToggle,
+  onDelete,
+  onEdit,
+  setTasks,
+  timers,
+  startTimer,
+  stopTimer,
+}) {
   const [isEditing, setIsEditing] = React.useState(false)
 
   const handleClickEdit = () => {
@@ -34,6 +47,14 @@ function TodoItem({ id, text, completed, createAt, onToggle, onDelete, onEdit })
           />
           <label>
             <span className="description">{text}</span>
+            <Timer
+              className="description"
+              timers={timers}
+              setTasks={setTasks}
+              id={id}
+              startTimer={startTimer}
+              stopTimer={stopTimer}
+            />
             <span className="created">{formatDistanceToNow(new Date(createAt), { addSuffix: true })}</span>
           </label>
           <button className="icon icon-edit" onClick={handleClickEdit}></button>
@@ -52,6 +73,10 @@ TodoItem.propTypes = {
   onToggle: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  setTasks: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
+  timers: PropTypes.object.isRequired,
 }
 
 export default React.memo(TodoItem)
